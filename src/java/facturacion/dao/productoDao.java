@@ -13,7 +13,8 @@ import facturacion.model.Producto;
  * @author admin01
  */
 public interface productoDao {
-      
+    
+    //Metodos crud de productos
     public List<Producto> listarProductos();
     public void newProducto(Producto producto);
     public void updateProducto(Producto producto);

@@ -11,12 +11,16 @@ import org.hibernate.Transaction;
 import facturacion.dao.clienteDao;
 import facturacion.model.Cliente;
 import facturacion.util.HibernateUtil;
+import org.hibernate.Query;
 
 /**
  *
  * @author admin01
  */
 public class clienteDaoImp implements clienteDao{
+    
+    //Implementacion de los metodos crud desde la clase dao
+    //Metodo listar clientes
  @Override
    public List<Cliente> listarClientes() {
        List<Cliente> lista=null;
@@ -35,6 +39,7 @@ public class clienteDaoImp implements clienteDao{
        return lista;
    }
    
+   //Metodo agregar clientes
    @Override
    public void newCliente(Cliente cliente) {
        Session session=null;
@@ -56,6 +61,7 @@ public class clienteDaoImp implements clienteDao{
        }
    }
    
+   //Metodo actualizar clientes
    @Override
    public void updateCliente(Cliente cliente) {
        Session session=null;
@@ -74,6 +80,7 @@ public class clienteDaoImp implements clienteDao{
            }
        }
    }
+   //Medodo eliminar clientes
   @Override
   public void deleteCliente(Cliente cliente) {
        Session session=null;
@@ -92,6 +99,16 @@ public class clienteDaoImp implements clienteDao{
            }
        }
    }
+
+  //Implementacion del metodo para seleccionar cliente mediante id
+    @Override
+    public Cliente obtenerClientePorCodigo(Session session, Integer codCliente) throws Exception {
+     String hql = "FROM Cliente WHERE codCliente = :codCliente";
+        Query q = session.createQuery(hql);
+        q.setParameter("codCliente", codCliente);
+        
+        return (Cliente) q.uniqueResult();
+    }
    
    
 

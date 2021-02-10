@@ -20,6 +20,9 @@ import facturacion.util.HibernateUtil;
  */
 public class productoDaoImp implements productoDao{
     
+    //Implementacion de los metodos crud desde la clase dao
+    
+    //Metodo listar productos
     @Override
    public List<Producto> listarProductos() {
        List<Producto> lista=null;
@@ -38,6 +41,7 @@ public class productoDaoImp implements productoDao{
        return lista;
    }
    
+   //Metodo agregar productos
    @Override
    public void newProducto(Producto producto) {
        Session session=null;
@@ -59,6 +63,7 @@ public class productoDaoImp implements productoDao{
        }
    }
    
+   //Metodo actualizar productos
    @Override
    public void updateProducto(Producto producto) {
        Session session=null;
@@ -78,6 +83,7 @@ public class productoDaoImp implements productoDao{
        }
    }
   
+   //Medodo para eliminar productos
    @Override
     public void deleteProducto(Producto producto) {
         Session session=null;

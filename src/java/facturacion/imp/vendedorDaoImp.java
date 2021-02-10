@@ -18,6 +18,8 @@ import facturacion.util.HibernateUtil;
  */
 public class vendedorDaoImp implements vendedorDao{
 
+    //Implementacion de los metodos crud desde la clase dao
+    //Metodo listar vendedores
     @Override
     public List<Vendedor> listarVendedor() {
       List<Vendedor> lista = null;
@@ -34,6 +36,7 @@ public class vendedorDaoImp implements vendedorDao{
         return lista;
     }
 
+    //Medodo para agregar vendedor
    @Override
    public void newVendedor(Vendedor vendedor) {
        Session session=null;
@@ -52,6 +55,7 @@ public class vendedorDaoImp implements vendedorDao{
        }
    }
     
+   // //Medodo para editar vendedores
     @Override
    public void updateVendedor(Vendedor vendedor) {
        Session session=null;
@@ -70,7 +74,7 @@ public class vendedorDaoImp implements vendedorDao{
        }
    }
     
-   
+   //Medodo para eliminar vendedores
     @Override
     public void deleteVendedor(Vendedor vendedor) {
        Session session=null;

@@ -12,6 +12,8 @@ import facturacion.model.Vendedor;
  *
  * @author admin01
  */
+
+//Metodos crud para vendedor
 public interface vendedorDao {
   public List<Vendedor> listarVendedor(); 
   public void newVendedor(Vendedor vendedor);
