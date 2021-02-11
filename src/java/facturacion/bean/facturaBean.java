@@ -6,9 +6,16 @@
 package facturacion.bean;
 
 import facturacion.dao.clienteDao;
+import facturacion.dao.productoDao;
 import facturacion.imp.clienteDaoImp;
+import facturacion.imp.productoDaoImp;
 import facturacion.model.Cliente;
+import facturacion.model.Detallefactura;
+import facturacion.model.Producto;
 import facturacion.util.HibernateUtil;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -29,7 +36,13 @@ public class facturaBean {
 
     private Cliente cliente;
     private Integer codigoCliente;
+    
+    private Producto producto;
+    private String codBarra;
+    private List<Detallefactura> listaDetalleFactura;
+    
     public facturaBean() {
+      this.listaDetalleFactura = new ArrayList<>();
     }
 
     public Cliente getCliente() {
@@ -47,6 +60,34 @@ public class facturaBean {
     public void setCodigoCliente(Integer codigoCliente) {
         this.codigoCliente = codigoCliente;
     }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+    public String getCodBarra() {
+        return codBarra;
+    }
+
+    public void setCodBarra(String codBarra) {
+        this.codBarra = codBarra;
+    }
+
+    public List<Detallefactura> getListaDetalleFactura() {
+        return listaDetalleFactura;
+    }
+
+    public void setListaDetalleFactura(List<Detallefactura> listaDetalleFactura) {
+        this.listaDetalleFactura = listaDetalleFactura;
+    }
+
+   
+    
+    
     
     //Metodo para mostrar los datos de clientes mediante dialogClientes
     
@@ -111,7 +152,85 @@ public class facturaBean {
             
             this.transaction.commit();
             
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Correcto","Datos cliente agregado"));
+                    
+        } catch (Exception e) {
+           
+            if (this.transaction != null) {
+                System.out.println(e.getMessage());
+                transaction.rollback();
+                
+            }
+            
+        }finally {
+            if (this.session != null) {
+             this.session.close();
+            }
+        }
+    }
+    
+    
+     //Metodo para mostrar los datos de clientes mediante dialogPruductos
+    
+    public void agregarDatosProductos(String  codBarra) {
+        this.session = null;
+        this.transaction = null;
+        
+        try {
+            this.session = HibernateUtil.getSessionFactory().openSession();
+            productoDao pdao = new productoDaoImp();
+            this.transaction = this.session.beginTransaction();
+            
+            // Guardar los datos en la variable objeto cliente segun el codigo
+            this.producto = pdao.buscarProductoPorCodBarra(this.session, codBarra);
+            
+            this.listaDetalleFactura.add(new Detallefactura(null, null, this.producto.getCodBarra(),this.producto.getNombreProducto(), 0 ,this.producto.getPrecioVenta(), new BigDecimal(0)));
+            this.transaction.commit();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Correcto","Producto agregado al detalle"));
+                    
+        } catch (Exception e) {
+           
+            if (this.transaction != null) {
+                System.out.println(e.getMessage());
+                transaction.rollback();
+                
+            }
+            
+        }finally {
+            if (this.session != null) {
+             this.session.close();
+            }
+        }
+    }
+    
+     //Metodo para mostrar los datos de productos mediante codigo barra
+    
+     //Metodo para mostrar los datos de clientes mediante dialogPruductos
+    
+    public void agregarDatosProductos2(String  codBarra) {
+        this.session = null;
+        this.transaction = null;
+        
+        try {
+            this.session = HibernateUtil.getSessionFactory().openSession();
+            productoDao pdao = new productoDaoImp();
+            this.transaction = this.session.beginTransaction();
+            
+            // Guardar los datos en la variable objeto cliente segun el codigo
+            this.producto = pdao.buscarProductoPorCodBarra(this.session, codBarra);
+            
+            this.listaDetalleFactura.add(new Detallefactura(null, null, this.producto.getCodBarra(),this.producto.getNombreProducto(), 0 ,this.producto.getPrecioVenta(), new BigDecimal(0)));
+            
+            if (this.producto != null) {
+                this.codBarra = null;
+                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Correcto","Producto agregado al detalle"));
+             
+            }
+            else {
+                this.codBarra = null;
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error","No se encontró producto"));
+               
+            }
+            this.transaction.commit();
                     
         } catch (Exception e) {
            

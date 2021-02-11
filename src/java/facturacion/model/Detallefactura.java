@@ -13,7 +13,7 @@ public class Detallefactura  implements java.io.Serializable {
      private Integer codDetalle;
      private Factura factura;
      private Producto producto;
-     private int codBarra;
+     private String codBarra;
      private String nombreProducto;
      private int cantidad;
      private BigDecimal precioVenta;
@@ -22,7 +22,7 @@ public class Detallefactura  implements java.io.Serializable {
     public Detallefactura() {
     }
 
-    public Detallefactura(Factura factura, Producto producto, int codBarra, String nombreProducto, int cantidad, BigDecimal precioVenta, BigDecimal total) {
+    public Detallefactura(Factura factura, Producto producto, String codBarra, String nombreProducto, int cantidad, BigDecimal precioVenta, BigDecimal total) {
        this.factura = factura;
        this.producto = producto;
        this.codBarra = codBarra;
@@ -53,11 +53,11 @@ public class Detallefactura  implements java.io.Serializable {
     public void setProducto(Producto producto) {
         this.producto = producto;
     }
-    public int getCodBarra() {
+    public String getCodBarra() {
         return this.codBarra;
     }
     
-    public void setCodBarra(int codBarra) {
+    public void setCodBarra(String codBarra) {
         this.codBarra = codBarra;
     }
     public String getNombreProducto() {

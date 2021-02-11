@@ -13,7 +13,7 @@
     <many-to-one class="facturacion.model.Producto" fetch="select" name="producto">
       <column name="codProducto" not-null="true"/>
     </many-to-one>
-    <property name="codBarra" type="int">
+    <property name="codBarra" type="string">
       <column name="codBarra" not-null="true"/>
     </property>
     <property name="nombreProducto" type="string">

@@ -9,8 +9,10 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import facturacion.dao.productoDao;
+import facturacion.model.Cliente;
 import facturacion.model.Producto;
 import facturacion.util.HibernateUtil;
+import org.hibernate.Query;
 
 
 
@@ -103,4 +105,16 @@ public class productoDaoImp implements productoDao{
             }
         }
     }
+
+        //Implementacion del metodo para seleccionar producto mediante id
+    @Override
+    public Producto buscarProductoPorCodBarra(Session session, String codBarra) throws Exception {
+        String hql = "FROM Producto WHERE codBarra = :codBarra";
+        Query q = session.createQuery(hql);
+        q.setParameter("codBarra", codBarra);
+        
+        return (Producto) q.uniqueResult();
+    }
+   
+   
 }

@@ -7,6 +7,7 @@ package facturacion.dao;
 
 import java.util.List;
 import facturacion.model.Producto;
+import org.hibernate.Session;
 
 /**
  *
@@ -19,4 +20,8 @@ public interface productoDao {
     public void newProducto(Producto producto);
     public void updateProducto(Producto producto);
     public void deleteProducto(Producto producto);
+    
+    public Producto buscarProductoPorCodBarra(Session session, String codBarra)throws Exception;
+        
+    
 }
